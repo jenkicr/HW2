@@ -10,38 +10,56 @@ editor_options:
 
 Formatting comments:
 
-  * Please submit your work as a single PDF file generated using R Markdown.
-  Your PDF file should be broken down into normal-size pages, 
-  not one extremely long page. 
-  
-  * You may write any of your solutions by hand, but include the handwritten
-  work as images within the R Markdown document. Make sure any photos of your work
-  are oriented correctly, not rotated. 
-  
-  * Please make sure your code does not run off the page. You should split your 
-  comments or code across multiple lines so that it displays fully in the PDF.
-  
-  * Please include all your code in the submission, along with all outputs.
+- Please submit your work as a single PDF file generated using R
+  Markdown. Your PDF file should be broken down into normal-size pages,
+  not one extremely long page.
 
-  * See Lab 1 for detailed instructions on how to use R Markdown and how to include images.
-  
-  * You must submit your work on Gradescope.
+- You may write any of your solutions by hand, but include the
+  handwritten work as images within the R Markdown document. Make sure
+  any photos of your work are oriented correctly, not rotated.
 
+- Please make sure your code does not run off the page. You should split
+  your comments or code across multiple lines so that it displays fully
+  in the PDF.
+
+- Please include all your code in the submission, along with all
+  outputs.
+
+- See Lab 1 for detailed instructions on how to use R Markdown and how
+  to include images.
+
+- You must submit your work on Gradescope.
 
 # Problem 1, a continuation of HW 1 Problem 2 (Through lecture 4)
 
-Referring to the data from HW 1 Problem 2, and your solutions to that problem:		
+Referring to the data from HW 1 Problem 2, and your solutions to that
+problem:
 
-a. Interpret the slope. Initially, do so first formally according to the formulation from class. Then, give an informal interpretation in terms of the average value of a square foot of livable area.										
+a.  Interpret the slope. Initially, do so first formally according to
+    the formulation from class. Then, give an informal interpretation in
+    terms of the average value of a square foot of livable area.
 
-b. Interpret the intercept. Initially, do so formally according to the formulation in class. Is there an informal interpretation of the intercept in the context of this problem that might be meaningful, despite the fact that it represents an extrapolation?
+b.  Interpret the intercept. Initially, do so formally according to the
+    formulation in class. Is there an informal interpretation of the
+    intercept in the context of this problem that might be meaningful,
+    despite the fact that it represents an extrapolation?
 
-c. What fraction of variation in Assessment is accounted for by Livable Area through our regression model?  Report the relevant quantity from the `R` output. Finally, what fraction of variation is accounted for by other factors besides livable area, such as differences in lot size, condition and quality of the building, and viability of the area? 
+c.  What fraction of variation in Assessment is accounted for by Livable
+    Area through our regression model? Report the relevant quantity from
+    the `R` output. Finally, what fraction of variation is accounted for
+    by other factors besides livable area, such as differences in lot
+    size, condition and quality of the building, and viability of the
+    area?
 
-d. Point prediction: Based on the fitted equation, what can you say about the predicted price for a residence with 2,500 square feet of livable area? Use `R` to calculate this and show your code.
+d.  Point prediction: Based on the fitted equation, what can you say
+    about the predicted price for a residence with 2,500 square feet of
+    livable area? Use `R` to calculate this and show your code.
 
-e. Predict the difference in assessed value for two residences where one residence is 200 square feet larger than the other. If you cannot complete your calculation with the information provided, explain why not.
-    
+e.  Predict the difference in assessed value for two residences where
+    one residence is 200 square feet larger than the other. If you
+    cannot complete your calculation with the information provided,
+    explain why not.
+
 # Problem 2 (Through lecture 4)
 
 Assume that the following linear model holds: \begin{align*}
@@ -70,33 +88,72 @@ entry of $A$.
 
 a.  Argue that $\sum_{i=1}^n(y_i-\hat{y}_i)^2$ may be written as
     $y^T(I-H)y$.
-    
-b.  Show that $E(y)^T(I-H)E(y) = 0$.
 
-c.  Show that
-    $\text{tr}\{(I-H)\text{Var}(y)\} = \text{tr}\{\text{Var}(y)-H\text{Var}(y)\}  =\sigma^2_\varepsilon(n-p-1)$.
+$$\begin{align*}
+\sum_{i=1}^n(y_i-\hat{y}_i)^2 = \sum(e_i^2) = e^Te = ((I-H)y)^T(I-H)y\\
+= y^T(I-H)^T(I-H)y=y^T(I-H)^2y\\
+y^T(I-H)y \text{            *since } I-H = (I-H)^2\\
+\checkmark
+\end{align*}$$ b. Show that $E(y)^T(I-H)E(y) = 0$. $$\begin{align*}
+E(y) = E(X\beta + \epsilon) = E(X\beta) + E(\epsilon) = E(X\beta)\\
+\Rightarrow
+E(y)^T(I-H)E(y) = E(X\beta)^T(I-H)E(X\beta) \\
+=X\beta^T(I-H)X\beta \text{.  since }X\beta\text{ is not a random var.}\\
+=X\beta^T(X-HX)\beta \\
+HX = X \Rightarrow X\beta^T(X-HX)\beta = X\beta^T(X-X)\beta\\
+=X\beta^T(0)\beta = 0 \space \checkmark
+\end{align*}$$ c. Show that
+$\text{tr}\{(I-H)\text{Var}(y)\} = \text{tr}\{\text{Var}(y)-H\text{Var}(y)\}  =\sigma^2_\varepsilon(n-p-1)$.
 
-    Hint: the following two results about the trace of a matrix could
-    come in handy. Let $A,B \in \mathbb{R}^{n\times n}$, let
-    $C,D \in \mathbb{R}^{n\times m}$. Then: \begin{align*}
-       \text{tr}(A+B) &= \text{tr}(A)+\text{tr}(B);\\
-       \text{tr}(CD^T) &= \text{tr}(D^TC).
-     \end{align*}
+```         
+Hint: the following two results about the trace of a matrix could
+come in handy. Let $A,B \in \mathbb{R}^{n\times n}$, let
+$C,D \in \mathbb{R}^{n\times m}$. Then: \begin{align*}
+   \text{tr}(A+B) &= \text{tr}(A)+\text{tr}(B);\\
+   \text{tr}(CD^T) &= \text{tr}(D^TC).
+ \end{align*}
+```
 
-d.  Use these results to show that
-    $E(\hat{\sigma}^2_{\varepsilon}) = \sigma^2_\varepsilon$, i.e. that
-    $\hat{\sigma}^2_\varepsilon$ is an unbiased estimator of
-    $\sigma^2_\varepsilon$.
+$$  \begin{align*}
+  Var(y)= Var(X\beta + \epsilon)  = Var(\epsilon) = \sigma_\epsilon^2I\\
+  trace[(I-H)Var(y)] = trace[(I-H)(\sigma_\epsilon^2I)]\\
+  =\sigma_\epsilon^2\space trace[I-H] = \sigma_\epsilon^2(trace[I] - trace[H])\\
+  =\sigma_\epsilon^2(n-trace[H]) = \sigma_\epsilon^2(n-trace[I_{p+1}]) = \sigma_\epsilon^2(n-p-1)\\
+  \checkmark
+ \end{align*}
+  $$ d. Use these results to show that
+$E(\hat{\sigma}^2_{\varepsilon}) = \sigma^2_\varepsilon$, i.e. that
+$\hat{\sigma}^2_\varepsilon$ is an unbiased estimator of
+$\sigma^2_\varepsilon$.
 
-e.  Does your finding in d) imply that
-    $E(\hat{\sigma}_\varepsilon) = \sigma_\varepsilon$? Why or why not?
+$$\begin{align*}
+E(z^TAz)=\mu^TAu+trace[A\Sigma]\\
+\Rightarrow E(y^T(I-H)y) = E(\sum_{i=1}^n(y_i-\hat y_i)^2) = 0 + \hat\sigma^2_\epsilon
+(n-p-1)\\
+\Rightarrow  \frac{1}{n-p-1} \sum_{i=1}^n(y_i-\hat y_i)^2\\
+= E(\sum_{i=1}^n(y_i-\hat y_i)^2)\\
+\Rightarrow E(\sigma^2_\epsilon) = \frac{1}{n-p-1}E(\sum_{i=1}^n(y_i-\hat y_i)^2)\\
+=\frac{1}{n-p-1}(\hat\sigma^2_\epsilon(n-p-1)) = \hat\sigma^2_\epsilon \space \checkmark
+\end{align*}$$ e. Does your finding in d) imply that
+$E(\hat{\sigma}_\varepsilon) = \sigma_\varepsilon$? Why or why not?
 
-f.  Let $Z_1,...,Z_n$ be $iid$ random variables with
-    $E(Z_i) = \theta$ and $Var(Z_i) = \sigma^2$. Show that the sample
-    variance, $\hat{\sigma}^2$, is an unbiased estimator of $\sigma^2$,
-    where \begin{align*}
+No, the one of the Linearity properties of variance tells us that for
+non-linear functions
+$Var(g(X)) \neq g(Var(X)) \Rightarrow \sqrt{(\hat\sigma)^2} = \hat\sigma \\E(\sqrt{\sigma^2}) \neq \sqrt{E(\sigma^2)}$
+
+f.  Let $Z_1,...,Z_n$ be $iid$ random variables with $E(Z_i) = \theta$
+    and $Var(Z_i) = \sigma^2$. Show that the sample variance,
+    $\hat{\sigma}^2$, is an unbiased estimator of $\sigma^2$, where
+    \begin{align*}
     \hat{\sigma}^2 = \frac{1}{n-1}\sum_{i=1}^n(Z_i-\bar{Z})^2.
-    \end{align*}
+    \end{align*} 
+Hint: try to apply the general result you proved
+about $\hat{\sigma}^2_\varepsilon$ in parts a-d.
 
-    Hint: try to apply the general result you proved about
-    $\hat{\sigma}^2_\varepsilon$ in parts a-d.
+$$
+\begin{align*}
+Z_i = \theta + \epsilon_i,\space p = 0,\hat{y_i} = \bar{Z} \text{, mean is a good predictor for 0 predictor variables}  \\
+\hat\sigma^2_\epsilon = \frac{1}{n-p-1}\sum_{i=1}^n(y_i-\hat{y_i})^2\\
+=\frac{1}{n-1}\sum_{i=1}^n(Z_i-\bar{Z_i})^2
+\end{align*}
+$$
